@@ -9,6 +9,7 @@ option='1'
 p_wins=0
 d_wins=0
 ties=0
+hidden_hand=0
 
 def print_menu():
     print("1. Get another card")
@@ -35,26 +36,38 @@ while option!='4':
         print_menu()
         print('')
         option = (input('Choose an option: '))
-    elif (option!='1' and option!='2') or (option=='0'):
+    elif option!='1' and option!='2':
         print('Invalid input!')
         print('Please enter an integer value between 1 and 4.')
         print('')
         print_menu()
         print('')
         option = (input('Choose an option: '))
+    elif option=='0':
+        print('Invalid input!')
+        print('Please enter an integer value between 1 and 4.')
+        print('')
+        print_menu()
+        print('')
+        option = (input('Choose an option: '))
+        hand=hidden_hand
     while option!='3' and option!='4':
         print('')
         value = rng.next_int(13) + 1
         hand = hand + value
+        hidden_hand=hand
         if value == 11:
             print('Your card is a JACK!')
             hand-=1
+            hidden_hand = hand
         elif value == 12:
             print('Your card is a QUEEN!')
             hand-=2
+            hidden_hand = hand
         elif value == 13:
             print('Your card is a KING!')
             hand-=3
+            hidden_hand = hand
         elif value == 1:
             print('Your card is a ACE!')
         else:
