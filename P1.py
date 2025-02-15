@@ -23,6 +23,8 @@ while option!='4':
         print(f'START GAME #{game}')
     hand=0
     if option == '3':
+        game-=1
+        print('')
         print(f'Number of Player wins: {p_wins}')
         print(f'Number of Dealer wins: {d_wins}')
         print(f'Number of tie games: {ties}')
