@@ -14,7 +14,7 @@ def print_menu():
     print("1. Get another card")
     print("2. Hold hand")
     print("3. Print statistics")
-    print("4. EXIT")
+    print("4. Exit")
 
 
 while option!='4':
@@ -37,7 +37,7 @@ while option!='4':
         option = (input('Choose an option: '))
     elif option!='1' and option!='2':
         print('Invalid input!')
-        print('Please enter an integer value between 1 and 4!')
+        print('Please enter an integer value between 1 and 4.')
         print('')
         print_menu()
         print('')
