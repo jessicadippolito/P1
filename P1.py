@@ -35,7 +35,7 @@ while option!='4':
         print_menu()
         print('')
         option = (input('Choose an option: '))
-    elif option!='1' and option!='2':
+    elif (option!='1' and option!='2') or (option=='0'):
         print('Invalid input!')
         print('Please enter an integer value between 1 and 4.')
         print('')
