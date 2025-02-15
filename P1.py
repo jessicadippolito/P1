@@ -3,9 +3,12 @@ rng = p1.P1Random()
 # import the module (do this on the first line of code)
 # create a P1Random variable
 
-game=1
+game=0
 hand = 0
-value = rng.next_int(13)+1
+option='1'
+p_wins=0
+d_wins=0
+ties=0
 
 def print_menu():
     print("1. Get another card")
@@ -13,50 +16,83 @@ def print_menu():
     print("3. Print Statistics")
     print("4. EXIT")
 
-def another_card():
-    if value == 11:
-        print('Your card is a JACK!')
-    elif value == 12:
-        print('Your card is a QUEEN!')
-    elif value == 13:
-        print('Your card is a KING!')
-    elif value == 1:
-        print('Your card is a ACE!')
-    else:
-        print(f'Your card is a {value}!')
 
-print(f'START GAME #{game}')
-print('')
-hand= hand+value
-another_card()
-print(f'Your hand is: {hand}')
-print('')
-print_menu()
-print('')
-option = (input('Choose an option: '))
-
-while option!=4:
-    if option==1:
+while option!='4':
+    if option=='1' or option=='2':
+        game+=1
+        print(f'START GAME #{game}')
+    hand=0
+    if option == '3':
+        print(f'Number of Player wins: {p_wins}')
+        print(f'Number of Dealer wins: {d_wins}')
+        print(f'Number of tie games: {ties}')
+        print(f'Total # of games played is: {game}')
+        percent = (p_wins / game) * 100.0
+        print(f'Percentage of Player wins: {percent:.1f}%')
+        print('')
+        print_menu()
+        print('')
+        option = (input('Choose an option: '))
+    elif option!='1' and option!='2':
+        print('Invalid input!')
+        print('')
+        print('Please enter an integer value between 1 and 4!')
+        print_menu()
+        print('')
+        option = (input('Choose an option: '))
+    while option!='3' and option!='4':
+        print('')
         value = rng.next_int(13) + 1
-        another_card()
-        hand+=value
-        continue
-    elif option==2:
-        dealer_hand = rng.next_int(11)+16
-        print(f"Dealer's hand: {dealer_hand}")
+        hand = hand + value
+        if value == 11:
+            print('Your card is a JACK!')
+            hand-=1
+        elif value == 12:
+            print('Your card is a QUEEN!')
+            hand-=2
+        elif value == 13:
+            print('Your card is a KING!')
+            hand-=3
+        elif value == 1:
+            print('Your card is a ACE!')
+        else:
+            print(f'Your card is a {value}!')
         print(f'Your hand is: {hand}')
         print('')
-        if dealer_hand>21:
-            print('You win!')
-        elif dealer_hand==hand:
-            print("It's a tie! No one wins!")
-        elif dealer_hand>hand:
-            print('Dealer wins!')
+        if hand==21:
+            print('BLACKJACK! You win!')
+            p_wins+=1
+            print('')
+            break
+        if hand>21:
+            print('You exceeded 21! You lose.')
+            d_wins+=1
+            print('')
+            break
+        print_menu()
+        print('')
+        option = (input('Choose an option: '))
+        if option=='1':
+            continue
+        if option=='2':
+            print('')
+            dealer_hand = rng.next_int(11)+16
+            print(f"Dealer's hand: {dealer_hand}")
+            print(f'Your hand is: {hand}')
+            print('')
+            if dealer_hand>21:
+                print('You win!')
+                p_wins+=1
+            elif dealer_hand==hand:
+                print("It's a tie! No one wins!")
+                ties+=1
+            elif dealer_hand>hand:
+                print('Dealer wins!')
+                d_wins+=1
+            else:
+                print('You win!')
+                p_wins += 1
+            print('')
+            break
         else:
-            print('You win!')
-    elif option==3:
-        print("3")
-    elif option==4:
-        break
-    game+=1
-
+            break
